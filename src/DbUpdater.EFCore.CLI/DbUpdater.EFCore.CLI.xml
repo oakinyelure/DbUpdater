@@ -26,7 +26,7 @@
         </member>
         <member name="T:DbUpdater.EFCore.CLI.ContextUpdater">
             <summary>
-            Default DbUpdater implementation depending on EFCore to persist code first entities am
+            Default DbUpdater implementation depending on EFCore to persist code first entities
             </summary>
         </member>
         <member name="M:DbUpdater.EFCore.CLI.ContextUpdater.ExecuteMigration(Microsoft.Extensions.Hosting.IHost,System.String[])">
