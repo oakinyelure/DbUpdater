@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <DocumentationFile>$(MSBuildProjectDirectory)\$(AssemblyName).xml</DocumentationFile>
+    <PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(MSBuildProjectDirectory)/RELEASE_NOTES.txt"))</PackageReleaseNotes>
+    <Description>The Dbupdater is an entity framework package created to allow the inclusion of EF Core code first migrations in the CI/CD processes through the command line. </Description>
+    <RepositoryUrl>https://github.com/oakinyelure/DbUpdater</RepositoryUrl>
+    <PackageReadmeFile>.\README.md</PackageReadmeFile>
+    <Copyright>Copyright Olusegun Akinyelure $([System.DateTimeOffset]::UtcNow.Year)</Copyright>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageOutputPath>NugetOutput</PackageOutputPath>
+    <Owners>oakinyelure</Owners>
+    <Authors>oakinyelure</Authors>
+    <Company>oakinyelure</Company>
+    <Title>DbUpdater.EFCore</Title>
+    <ProductName>DbUpdater.EFCore</ProductName>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <Version>1.0.0</Version>
+    <ProductVersion>1.0.0</ProductVersion>
+    <PackageTags>efcore;entityframework;ef;continous;integration;efcode_first</PackageTags>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <MinVerTagPrefix>v</MinVerTagPrefix>
+    <SignAssembly>true</SignAssembly>
+    <PackageProjectUrl>https://github.com/oakinyelure/DbUpdater/projects</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.9.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.12" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="README.md" Pack="true" PackagePath=".">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="RELEASE_NOTES.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

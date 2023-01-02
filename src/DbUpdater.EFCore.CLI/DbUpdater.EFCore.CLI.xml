@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DbUpdater.EFCore.CLI</name>
+    </assembly>
+    <members>
+        <member name="T:DbUpdater.EFCore.CLI.AbstractContextSeeder">
+            <summary>
+            An abstract class for all seedable classes. 
+            The abstract class contains properties to help order seeding steps 
+            where one seed must complete before another seed.
+            </summary>
+        </member>
+        <member name="P:DbUpdater.EFCore.CLI.AbstractContextSeeder.Order">
+            <summary>
+            The order the seed needs to be persisted to 
+            the database
+            </summary>
+        </member>
+        <member name="M:DbUpdater.EFCore.CLI.AbstractContextSeeder.Seed(Microsoft.Extensions.DependencyInjection.IServiceScope)">
+            <summary>
+            Persists the seed data into the database. 
+            Seed class gets to write their seed logic
+            </summary>
+            <param name="provider">Inject the service provider to get instance of your database context</param>
+        </member>
+        <member name="T:DbUpdater.EFCore.CLI.ContextUpdater">
+            <summary>
+            Default DbUpdater implementation depending on EFCore to persist code first entities am
+            </summary>
+        </member>
+        <member name="M:DbUpdater.EFCore.CLI.ContextUpdater.ExecuteMigration(Microsoft.Extensions.Hosting.IHost,System.String[])">
+            <summary>
+            Static method to perform all the migrations
+            using the argument tree
+            </summary>
+            <param name="host"></param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DbUpdater.EFCore.CLI.DbContextMigration">
+            <summary>
+            Implementation of the DbContext migration class for persisting code-first entities into the
+            database. This includes actual migration and logical seeding
+            </summary>
+        </member>
+        <member name="M:DbUpdater.EFCore.CLI.DbContextMigration.#ctor(Microsoft.Extensions.Hosting.IHost,DbUpdater.EFCore.CLI.MigrationOption)">
+            <summary>
+            Instance of the context migration
+            </summary>
+            <param name="host"></param>
+            <param name="opt"></param>
+        </member>
+        <member name="M:DbUpdater.EFCore.CLI.DbContextMigration.PersistMigration">
+            inheritDoc
+        </member>
+        <member name="M:DbUpdater.EFCore.CLI.DbContextMigration.PersistScript">
+            <summary>
+            Persists SQL script into the database
+            </summary>
+        </member>
+        <member name="M:DbUpdater.EFCore.CLI.DbContextMigration.PersistSeed">
+            inheritDoc
+        </member>
+        <member name="T:DbUpdater.EFCore.CLI.IContextDeployable">
+            <summary>
+            Interface for propalgating entities to the persistence later
+            </summary>
+        </member>
+        <member name="M:DbUpdater.EFCore.CLI.IContextDeployable.PersistMigration">
+            <summary>
+            Completes the migration of the code first entities to the database
+            </summary>
+        </member>
+        <member name="M:DbUpdater.EFCore.CLI.IContextDeployable.PersistScript">
+            <summary>
+            Deploys Raw SQL scripts to the database using EF Core
+            </summary>
+        </member>
+        <member name="T:DbUpdater.EFCore.CLI.IContextSeedable">
+            <summary>
+            Interface for the seedable APIs
+            </summary>
+        </member>
+        <member name="M:DbUpdater.EFCore.CLI.IContextSeedable.PersistSeed">
+            <summary>
+            Executes seed logic by looking into the DbContext assembly to fetch all types that
+            extends the <see cref="T:DbUpdater.EFCore.CLI.AbstractContextSeeder"/> and executes its seed method.
+            </summary>
+            <remarks>The <see cref="T:DbUpdater.EFCore.CLI.AbstractContextSeeder"/> Seed method uses the <see cref="T:System.IServiceProvider"/> 
+            argument to allow instance to the DbContext class from the dependency injection tree</remarks>
+        </member>
+        <member name="T:DbUpdater.EFCore.CLI.MigrationOption">
+            <summary>
+            Console options expected when the instance of the dbupdater is ran
+            </summary>
+        </member>
+        <member name="P:DbUpdater.EFCore.CLI.MigrationOption.Help">
+            <summary>
+            Set option to true to display help
+            </summary>
+        </member>
+        <member name="P:DbUpdater.EFCore.CLI.MigrationOption.Scripts">
+            <summary>
+            All the SQL scripts to be deployed as part of the migration
+            </summary>
+        </member>
+        <member name="P:DbUpdater.EFCore.CLI.MigrationOption.Migrate">
+            <summary>
+            Set to true if migration needs to be persisted into the database
+            </summary>
+        </member>
+        <member name="P:DbUpdater.EFCore.CLI.MigrationOption.Seed">
+            <summary>
+            Set to true if seed data needs to be persisted into the database
+            </summary>
+        </member>
+        <member name="P:DbUpdater.EFCore.CLI.MigrationOption.Type">
+            <summary>
+            Type to get the EF context / DBContext instance from
+            </summary>
+            <remarks>Defaults to executing assembly if no value is provided</remarks>
+        </member>
+    </members>
+</doc>
