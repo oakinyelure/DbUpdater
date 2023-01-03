@@ -8,7 +8,6 @@
     <PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(MSBuildProjectDirectory)/RELEASE_NOTES.txt"))</PackageReleaseNotes>
     <Description>The Dbupdater is an entity framework package created to allow the inclusion of EF Core code first migrations in the CI/CD processes through the command line. </Description>
     <RepositoryUrl>https://github.com/oakinyelure/DbUpdater</RepositoryUrl>
-    <PackageReadmeFile>.\README.md</PackageReadmeFile>
     <Copyright>Copyright Olusegun Akinyelure $([System.DateTimeOffset]::UtcNow.Year)</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageOutputPath>NugetOutput</PackageOutputPath>
@@ -22,13 +21,15 @@
     <ProductVersion>1.0.0</ProductVersion>
     <PackageTags>efcore;entityframework;ef;continous;integration;efcode_first</PackageTags>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <MinVerTagPrefix>v</MinVerTagPrefix>
     <SignAssembly>true</SignAssembly>
     <PackageProjectUrl>https://github.com/oakinyelure/DbUpdater/projects</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <PackageId>oakinyelure.DbUpdater</PackageId>    
+    <PackageId>DbUpdater.EF</PackageId>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <IncludeSymbols>False</IncludeSymbols>    
   </PropertyGroup>
 
   <ItemGroup>
@@ -39,11 +40,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="README.md" Pack="true" PackagePath=".">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
     </None>
     <None Update="RELEASE_NOTES.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
 
