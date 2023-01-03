@@ -24,4 +24,4 @@ jobs:
             - name: Build
               run: dotnet build DbUpdater.sln --no-restore
             - name: Deploy package to NuGet
-              run: dotnet nuget push NugetOutput/*.nupkg --api-key ${{secrets.NUGET_TOKEN}} --source https://api.nuget.org/v3/index.json
+              run: dotnet nuget push src/DbUpdater.EFCore.CLI/NugetOutput/*.nupkg --api-key ${{secrets.NUGET_TOKEN}} --source https://api.nuget.org/v3/index.json
