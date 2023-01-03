@@ -28,7 +28,7 @@
     <PackageProjectUrl>https://github.com/oakinyelure/DbUpdater/projects</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <PackageId>DbUpdater</PackageId>    
+    <PackageId>oakinyelure.DbUpdater</PackageId>    
   </PropertyGroup>
 
   <ItemGroup>
