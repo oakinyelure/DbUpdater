@@ -17,7 +17,7 @@
     <Title>DbUpdater.EFCore</Title>
     <ProductName>DbUpdater.EFCore</ProductName>
     <AssemblyVersion>1.0.0</AssemblyVersion>
-    <Version>1.0.0-beta</Version>
+    <Version>1.0.0</Version>
     <ProductVersion>1.0.0</ProductVersion>
     <PackageTags>efcore;entityframework;ef;continous;integration;efcode_first</PackageTags>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -26,7 +26,7 @@
     <PackageProjectUrl>https://github.com/oakinyelure/DbUpdater/projects</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <PackageId>DbUpdater.EF</PackageId>
+    <PackageId>DbUpdater.EFCore.CLI</PackageId>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <IncludeSymbols>False</IncludeSymbols>    
