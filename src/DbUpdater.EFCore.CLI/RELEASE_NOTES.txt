@@ -1,2 +1,5 @@
-﻿V1.0
-Initial updater implementation
+﻿v1.0.0
+- Simple IHost extension to add CLI support. Can be used without CLI but with performance overhead
+- Added support for code-first migration
+- Added support for script execution through EF 
+- Added support for seeding with custom logic

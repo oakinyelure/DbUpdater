@@ -15,7 +15,7 @@ namespace DbUpdater.EFCore.CLI
         /// <param name="host"></param>
         /// <param name="args"></param>
         /// <returns></returns>
-        public static void ExecuteMigration(this IHost host, string[] args)
+        public static void DeployMigrationFromCLI(this IHost host, string[] args)
         {
             if (!args.Any())
             {
