@@ -14,11 +14,11 @@
     <Owners>oakinyelure</Owners>
     <Authors>oakinyelure</Authors>
     <Company>oakinyelure</Company>
-    <Title>DbUpdater.EFCore</Title>
-    <ProductName>DbUpdater.EFCore</ProductName>
-    <AssemblyVersion>1.0.0</AssemblyVersion>
-    <Version>1.0.0</Version>
-    <ProductVersion>1.0.0</ProductVersion>
+    <Title>DbUpdater.EFCore.CLI</Title>
+    <ProductName>DbUpdater.EFCore.CLI</ProductName>
+    <AssemblyVersion>1.0.1</AssemblyVersion>
+    <Version>1.0.1</Version>
+    <ProductVersion>1.0.1</ProductVersion>
     <PackageTags>efcore;entityframework;ef;continous;integration;efcode_first</PackageTags>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <MinVerTagPrefix>v</MinVerTagPrefix>
