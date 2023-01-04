@@ -19,7 +19,7 @@ namespace DbUpdater.EFCore.CLI
         private DbContext TryGetEFContextFromServiceProvider()
         {
             var matchingTypes = _serviceScope.ServiceProvider.GetServices(typeof(DbContext));
-            var type = matchingTypes.Where(e => e.GetType().Name.Equals(_options.Type, StringComparison.OrdinalIgnoreCase))
+            var type = matchingTypes.Where(e => e.GetType().FullName.Equals(_options.Context, StringComparison.OrdinalIgnoreCase))
                 .FirstOrDefault();
             if (type == null) throw new Exception("No matching DbContext type found in the service collection");
             return (DbContext)type;
@@ -35,8 +35,8 @@ namespace DbUpdater.EFCore.CLI
             var scopeFactory = host.Services.GetService<IServiceScopeFactory>();
             using IServiceScope serviceScope = scopeFactory.CreateScope();
             _serviceScope = serviceScope;
-            MigrationContext = TryGetEFContextFromServiceProvider();
             _options = opt;
+            MigrationContext = TryGetEFContextFromServiceProvider();            
             PersistMigration();
         }
 

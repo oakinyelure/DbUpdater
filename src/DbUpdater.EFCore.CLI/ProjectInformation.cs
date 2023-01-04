@@ -16,14 +16,15 @@
             var instructions = new List<string>
             {
                 "Options:",
-                "-m|migrate        Migrates the entities. Requires the type option to be specified",
-                "-s|seed           Invokes all seed logic in the DbContext assembly",
-                "-S|scripts        A comma delimted list of SQL files to execute in the during the migration. Files must be present and added to the deployed artifact",
-                "-t|type           The full type of the DbContext to be migrated. Usually, this will extend the DbContext class",
+                "-m, --migrate        Set to true if migration needs to be persisted into the database",
+                "-s, --seed           Set to true if seed data needs to be persisted into the database",
+                "-S, --scripts        All the SQL scripts to be deployed as part of the migration",
+                "-c, --context        Full name of the EF context class / DBContext instance",
+                "-h, --help           Display help",
                 "",
                 "USAGE",
-                "Run DLL           dotnet {your_assembly.dll} -m -s --type=MigrationContext --scripts=scriptfolder/script.sql,script.sql",
-                "Run executable    {your_assembly.exe} -m -s --type=MigrationContext --scripts=scriptfolder/script.sql,script.sql",
+                "Run DLL           dotnet {your_assembly.dll} -m -s --type=AssemblyName.NameOfMigrationContext --scripts=scriptfolder/script.sql script.sql",
+                "Run executable    {your_assembly.exe} -m -s -t=AssemblyName.NameOfMigrationContext -S=scriptfolder/script.sql script.sql",
             };
             foreach (var instruction in instructions)
             {
@@ -35,7 +36,7 @@
         {
             var verbosities = new List<string>
             {
-                "-h|--help         Display help"
+                "-h, --help         Display help"
             };
             foreach (var verbosity in verbosities)
             {

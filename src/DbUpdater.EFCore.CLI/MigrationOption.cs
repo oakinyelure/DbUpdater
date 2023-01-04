@@ -35,7 +35,7 @@ namespace DbUpdater.EFCore.CLI
         /// Type to get the EF context / DBContext instance from
         /// </summary>
         /// <remarks>Defaults to executing assembly if no value is provided</remarks>
-        [Option('t', "type", Required = false, HelpText = "Type to get the EF context / DBContext instance from")]
-        public string Type { get; set; }
+        [Option('c', "context", Required = false, HelpText = "Full name of the EF context class / DBContext instance")]
+        public string Context { get; set; }
     }
 }

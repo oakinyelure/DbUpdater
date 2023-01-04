@@ -16,9 +16,9 @@
     <Company>oakinyelure</Company>
     <Title>DbUpdater.EFCore.CLI</Title>
     <ProductName>DbUpdater.EFCore.CLI</ProductName>
-    <AssemblyVersion>1.0.1</AssemblyVersion>
-    <Version>1.0.1</Version>
-    <ProductVersion>1.0.1</ProductVersion>
+    <AssemblyVersion>1.0.2</AssemblyVersion>
+    <Version>1.0.2</Version>
+    <ProductVersion>1.0.2</ProductVersion>
     <PackageTags>efcore;entityframework;ef;continous;integration;efcode_first</PackageTags>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <MinVerTagPrefix>v</MinVerTagPrefix>

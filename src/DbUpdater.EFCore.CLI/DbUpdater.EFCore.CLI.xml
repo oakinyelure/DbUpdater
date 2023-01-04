@@ -29,7 +29,7 @@
             Default DbUpdater implementation depending on EFCore to persist code first entities
             </summary>
         </member>
-        <member name="M:DbUpdater.EFCore.CLI.ContextUpdater.ExecuteMigration(Microsoft.Extensions.Hosting.IHost,System.String[])">
+        <member name="M:DbUpdater.EFCore.CLI.ContextUpdater.DeployMigrationFromCLI(Microsoft.Extensions.Hosting.IHost,System.String[])">
             <summary>
             Static method to perform all the migrations
             using the argument tree
@@ -115,7 +115,7 @@
             Set to true if seed data needs to be persisted into the database
             </summary>
         </member>
-        <member name="P:DbUpdater.EFCore.CLI.MigrationOption.Type">
+        <member name="P:DbUpdater.EFCore.CLI.MigrationOption.Context">
             <summary>
             Type to get the EF context / DBContext instance from
             </summary>
