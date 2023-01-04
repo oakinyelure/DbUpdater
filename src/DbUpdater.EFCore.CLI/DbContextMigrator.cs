@@ -16,13 +16,25 @@ namespace DbUpdater.EFCore.CLI
 
         internal DbContext MigrationContext;
 
-        private DbContext TryGetEFContextFromServiceProvider()
+        /// <summary>
+        /// Fetches an instance of a class by name from the service provider
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        private T TryGetDBContextFromServiceProvider<T>()
         {
-            var matchingTypes = _serviceScope.ServiceProvider.GetServices(typeof(DbContext));
-            var type = matchingTypes.Where(e => e.GetType().FullName.Equals(_options.Context, StringComparison.OrdinalIgnoreCase))
-                .FirstOrDefault();
-            if (type == null) throw new Exception("No matching DbContext type found in the service collection");
-            return (DbContext)type;
+            // Crawl through the entire assembly to get the type that matches the
+            // context argument
+            var typeOfContext = AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(e => e.GetTypes())
+                .FirstOrDefault(e => e.FullName.Equals(_options.Context,StringComparison.OrdinalIgnoreCase) && e.IsAssignableFrom(typeof(T)));
+            if (typeOfContext == null) throw new Exception("No matching context exist in the assembly");
+            
+            // Get the registered type from the service provider
+            var contextType = _serviceScope.ServiceProvider.GetService(typeOfContext);
+            if (contextType == null) throw new Exception("No matching DbContext type found in the service collection");
+            return (T)contextType;
         }
 
         /// <summary>
@@ -36,7 +48,7 @@ namespace DbUpdater.EFCore.CLI
             using IServiceScope serviceScope = scopeFactory.CreateScope();
             _serviceScope = serviceScope;
             _options = opt;
-            MigrationContext = TryGetEFContextFromServiceProvider();            
+            MigrationContext = TryGetDBContextFromServiceProvider<DbContext>();            
             PersistMigration();
         }
 
