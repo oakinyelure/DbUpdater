@@ -90,6 +90,29 @@
             <remarks>The <see cref="T:DbUpdater.EFCore.CLI.AbstractContextSeeder"/> Seed method uses the <see cref="T:System.IServiceProvider"/> 
             argument to allow instance to the DbContext class from the dependency injection tree</remarks>
         </member>
+        <member name="T:DbUpdater.EFCore.CLI.ITypeLookup">
+            <summary>
+            Look up type and instance from assemblies and service provider
+            </summary>
+        </member>
+        <member name="M:DbUpdater.EFCore.CLI.ITypeLookup.TryGetByFullName(System.String)">
+            <summary>
+            Searches through all the assembly to fetch the type that matches 
+            the name. The full name must be used
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DbUpdater.EFCore.CLI.ITypeLookup.GetInstanceByFullName``1(Microsoft.Extensions.DependencyInjection.IServiceScope,System.String)">
+            <summary>
+            Searches through all registered types in the dependency injection graph to get instance
+            of the type that is registered. The instance is converted to the generic type
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="serviceScope"></param>
+            <param name="fullTypeName"></param>
+            <returns>Instance of specified type if it exist. Returns null otherwise</returns>
+        </member>
         <member name="T:DbUpdater.EFCore.CLI.MigrationOption">
             <summary>
             Console options expected when the instance of the dbupdater is ran
@@ -120,6 +143,17 @@
             Type to get the EF context / DBContext instance from
             </summary>
             <remarks>Defaults to executing assembly if no value is provided</remarks>
+        </member>
+        <member name="T:DbUpdater.EFCore.CLI.TypeLookup">
+            <inheritdoc/>
+        </member>
+        <member name="M:DbUpdater.EFCore.CLI.TypeLookup.TryGetByFullName(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DbUpdater.EFCore.CLI.TypeLookup.GetInstanceByFullName``1(Microsoft.Extensions.DependencyInjection.IServiceScope,System.String)">
+            <inheritdoc/>
+            <exception cref="T:System.NotSupportedException">Throws NotSupportedException when the type is not found in any assembly</exception>
+            <exception cref="T:System.Exception">Throws Exception when the type is not registered in the DI system</exception>
         </member>
     </members>
 </doc>

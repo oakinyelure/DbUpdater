@@ -17,27 +17,6 @@ namespace DbUpdater.EFCore.CLI
         internal DbContext MigrationContext;
 
         /// <summary>
-        /// Fetches an instance of a class by name from the service provider
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        /// <exception cref="Exception"></exception>
-        private T TryGetDBContextFromServiceProvider<T>()
-        {
-            // Crawl through the entire assembly to get the type that matches the
-            // context argument
-            var typeOfContext = AppDomain.CurrentDomain.GetAssemblies()
-                .SelectMany(e => e.GetTypes())
-                .FirstOrDefault(e => e.FullName.Equals(_options.Context,StringComparison.OrdinalIgnoreCase) && e.IsAssignableFrom(typeof(T)));
-            if (typeOfContext == null) throw new Exception("No matching context exist in the assembly");
-            
-            // Get the registered type from the service provider
-            var contextType = _serviceScope.ServiceProvider.GetService(typeOfContext);
-            if (contextType == null) throw new Exception("No matching DbContext type found in the service collection");
-            return (T)contextType;
-        }
-
-        /// <summary>
         /// Instance of the context migration
         /// </summary>
         /// <param name="host"></param>
@@ -48,7 +27,7 @@ namespace DbUpdater.EFCore.CLI
             using IServiceScope serviceScope = scopeFactory.CreateScope();
             _serviceScope = serviceScope;
             _options = opt;
-            MigrationContext = TryGetDBContextFromServiceProvider<DbContext>();            
+            MigrationContext = new TypeLookup().GetInstanceByFullName<DbContext>(_serviceScope, _options.Context);
             PersistMigration();
         }
 
@@ -102,8 +81,8 @@ namespace DbUpdater.EFCore.CLI
                 Console.WriteLine("Seeding is not elected. Skipping");
                 return;
             }
-            // Find where the dbContext assembly is. We only want to execute the seeder in that assembly
-            Assembly assembly = MigrationContext.GetType().Assembly;
+            // Find where the data context assembly is. We only want to execute the seeder in that assembly
+            Assembly assembly = new TypeLookup().TryGetByFullName(_options.Context).GetType().Assembly;
             var seeders = assembly.GetTypes()
                 .Where(type => !type.IsAbstract && typeof(AbstractContextSeeder).IsAssignableFrom(type))
                 .Select(type => Activator.CreateInstance(type) as AbstractContextSeeder)

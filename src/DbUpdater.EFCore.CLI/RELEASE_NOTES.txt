@@ -3,3 +3,9 @@
 - Added support for code-first migration
 - Added support for script execution through EF 
 - Added support for seeding with custom logic
+
+--- 
+v1.0.4
+- Added TypeLookup to help look up type from IServiceScope instance and assemblies present in the App domain
+- Added unit test project
+- Fixed bug in the seed migration using the DbContext assembly instead of the actual data context assembly
