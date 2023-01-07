@@ -29,6 +29,8 @@ namespace DbUpdater.EFCore.CLI
             _options = opt;
             MigrationContext = new TypeLookup().GetInstanceByFullName<DbContext>(_serviceScope, _options.Context);
             PersistMigration();
+            PersistScript();
+            PersistSeed();            
         }
 
         /// inheritDoc
@@ -48,7 +50,6 @@ namespace DbUpdater.EFCore.CLI
             var existingMigrations = MigrationContext.Database.GetAppliedMigrations().Count();
             Console.WriteLine($"Applied {existingMigrations} till date. Applying {pendingMigrations} now.....");
             MigrationContext.Database.Migrate();
-            PersistScript();
         }
 
         /// <summary>
@@ -93,9 +94,13 @@ namespace DbUpdater.EFCore.CLI
                 Console.WriteLine($"Found {seeders.Count} seeders....");
                 seeders.ForEach(seeder =>
                 {
-                    Console.WriteLine($"Executing {seeder.GetType().FullName}");
+                    Console.WriteLine($"Executing seed for {seeder.GetType().FullName}");
                     seeder.Seed(_serviceScope);
                 });
+            }
+            else
+            {
+                Console.WriteLine($"No seeder found. Skipping.");
             }
         }
     }

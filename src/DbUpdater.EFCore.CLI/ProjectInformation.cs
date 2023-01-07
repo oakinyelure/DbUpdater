@@ -8,7 +8,6 @@
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine($"DbUpdater for EFCore version {GetType().Assembly.GetName().Version}");
             Console.ForegroundColor = currentColor;
-            ShowVerbose();
         }
 
         public static void ShowHelp()

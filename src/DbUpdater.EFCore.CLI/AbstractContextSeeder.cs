@@ -13,13 +13,13 @@ namespace DbUpdater.EFCore.CLI
         /// The order the seed needs to be persisted to 
         /// the database
         /// </summary>
-        public abstract int Order { get; set; }
+        public abstract int Order { get; }
 
         /// <summary>
         /// Persists the seed data into the database. 
         /// Seed class gets to write their seed logic
         /// </summary>
-        /// <param name="provider">Inject the service provider to get instance of your database context</param>
+        /// <param name="provider">Inject the service scope to get instance of your database context</param>
         public abstract void Seed(IServiceScope provider);
     }
 }

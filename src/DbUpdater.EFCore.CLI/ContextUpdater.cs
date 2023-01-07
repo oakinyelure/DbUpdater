@@ -19,7 +19,6 @@ namespace DbUpdater.EFCore.CLI
         {
             if (!args.Any())
             {
-                Console.WriteLine($"{nameof(args)} does not contain any arguments. DbUpdater does not know what to do");
                 Environment.Exit(0);
             }
             var parsedOptions = Parser.Default.ParseArguments<MigrationOption>(args);

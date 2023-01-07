@@ -22,7 +22,7 @@
             Persists the seed data into the database. 
             Seed class gets to write their seed logic
             </summary>
-            <param name="provider">Inject the service provider to get instance of your database context</param>
+            <param name="provider">Inject the service scope to get instance of your database context</param>
         </member>
         <member name="T:DbUpdater.EFCore.CLI.ContextUpdater">
             <summary>
