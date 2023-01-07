@@ -10,7 +10,8 @@ v1.0.4
 - Added unit test project
 - Fixed bug in the seed migration using the DbContext assembly instead of the actual data context assembly
 
-v1.0.5-beta
+v1.0.5
 - Removed setter for the AbstractContextSeeder.Order property. This is not needed. Could be added when there is a need for it
 - Updated the migrator to include seeding and script execution post constructor initialization
 - Removed verbose note when the updater is called. It's not necessary. Users are able to use the help argument to display help
+- Updated the type lookup class to include method for getting all seedable objects

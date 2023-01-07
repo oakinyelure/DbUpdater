@@ -23,6 +23,15 @@ namespace DbUpdater.EFCore.CLI
         /// <param name="serviceScope"></param>
         /// <param name="fullTypeName"></param>
         /// <returns>Instance of specified type if it exist. Returns null otherwise</returns>
-        T GetInstanceByFullName<T>(IServiceScope serviceScope, string fullTypeName);
+        T GetServiceProviderInstanceByFullName<T>(IServiceScope serviceScope, string fullTypeName);
+
+        /// <summary>
+        /// Searches through the assembly to create instances of objects matching the 
+        /// type argument
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="fullContextName"></param>
+        /// <returns>Collection of instances matching the type argument</returns>
+        IEnumerable<AbstractContextSeeder> GetSeedersByContextName(string fullContextName);
     }
 }

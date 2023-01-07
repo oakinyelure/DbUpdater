@@ -22,7 +22,7 @@
             Persists the seed data into the database. 
             Seed class gets to write their seed logic
             </summary>
-            <param name="provider">Inject the service scope to get instance of your database context</param>
+            <param name="serviceScope">Inject the service scope to get instance of your database context</param>
         </member>
         <member name="T:DbUpdater.EFCore.CLI.ContextUpdater">
             <summary>
@@ -103,7 +103,7 @@
             <param name="type"></param>
             <returns></returns>
         </member>
-        <member name="M:DbUpdater.EFCore.CLI.ITypeLookup.GetInstanceByFullName``1(Microsoft.Extensions.DependencyInjection.IServiceScope,System.String)">
+        <member name="M:DbUpdater.EFCore.CLI.ITypeLookup.GetServiceProviderInstanceByFullName``1(Microsoft.Extensions.DependencyInjection.IServiceScope,System.String)">
             <summary>
             Searches through all registered types in the dependency injection graph to get instance
             of the type that is registered. The instance is converted to the generic type
@@ -112,6 +112,15 @@
             <param name="serviceScope"></param>
             <param name="fullTypeName"></param>
             <returns>Instance of specified type if it exist. Returns null otherwise</returns>
+        </member>
+        <member name="M:DbUpdater.EFCore.CLI.ITypeLookup.GetSeedersByContextName(System.String)">
+            <summary>
+            Searches through the assembly to create instances of objects matching the 
+            type argument
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="fullContextName"></param>
+            <returns>Collection of instances matching the type argument</returns>
         </member>
         <member name="T:DbUpdater.EFCore.CLI.MigrationOption">
             <summary>
@@ -150,10 +159,14 @@
         <member name="M:DbUpdater.EFCore.CLI.TypeLookup.TryGetByFullName(System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:DbUpdater.EFCore.CLI.TypeLookup.GetInstanceByFullName``1(Microsoft.Extensions.DependencyInjection.IServiceScope,System.String)">
+        <member name="M:DbUpdater.EFCore.CLI.TypeLookup.GetServiceProviderInstanceByFullName``1(Microsoft.Extensions.DependencyInjection.IServiceScope,System.String)">
             <inheritdoc/>
             <exception cref="T:System.NotSupportedException">Throws NotSupportedException when the type is not found in any assembly</exception>
             <exception cref="T:System.Exception">Throws Exception when the type is not registered in the DI system</exception>
+        </member>
+        <member name="M:DbUpdater.EFCore.CLI.TypeLookup.GetSeedersByContextName(System.String)">
+            <inheritdoc/>
+            <exception cref="T:System.Exception">Throws exception when the context cannot be found in any assembly in the application</exception>
         </member>
     </members>
 </doc>

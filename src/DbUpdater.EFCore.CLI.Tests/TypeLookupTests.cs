@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using DbUpdater.EFCore.CLI;
+using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using System;
+using System.Linq;
 using Xunit;
 using static DbUpdater.EFCore.CLI.Tests.TypeLookupClass2;
 
@@ -14,6 +16,16 @@ namespace DbUpdater.EFCore.CLI.Tests
     }
 
     public class TypeLookupClass2B : TypeLookupClass2 { }
+
+    internal class TestSeeder : AbstractContextSeeder
+    {
+        public override int Order => 0;
+
+        public override void Seed(IServiceScope serviceScope)
+        {
+            throw new NotImplementedException();
+        }
+    }
 
 
     public class TypeLookupTests
@@ -47,7 +59,7 @@ namespace DbUpdater.EFCore.CLI.Tests
             serviceScope.SetupGet(e => e.ServiceProvider).Returns(serviceProvider.Object);
 
             var lookup = new TypeLookup();
-            TypeLookupClass1 actual = lookup.GetInstanceByFullName<TypeLookupClass1>(serviceScope.Object, "DbUpdater.EFCore.CLI.Tests.TypeLookupClass1");
+            TypeLookupClass1 actual = lookup.GetServiceProviderInstanceByFullName<TypeLookupClass1>(serviceScope.Object, "DbUpdater.EFCore.CLI.Tests.TypeLookupClass1");
             Assert.NotNull(actual);
             Assert.IsAssignableFrom<TypeLookupClass1>(expected);
             Assert.IsType<TypeLookupClass1>(actual);
@@ -63,7 +75,7 @@ namespace DbUpdater.EFCore.CLI.Tests
             serviceScope.SetupGet(e => e.ServiceProvider).Returns(serviceProvider.Object);
 
             var lookup = new TypeLookup();
-            TypeLookupClass2 actual = lookup.GetInstanceByFullName<TypeLookupClass2>(serviceScope.Object, "DbUpdater.EFCore.CLI.Tests.TypeLookupClass2B");
+            TypeLookupClass2 actual = lookup.GetServiceProviderInstanceByFullName<TypeLookupClass2>(serviceScope.Object, "DbUpdater.EFCore.CLI.Tests.TypeLookupClass2B");
             Assert.IsType<TypeLookupClass2>(actual);
         }
 
@@ -77,7 +89,7 @@ namespace DbUpdater.EFCore.CLI.Tests
             serviceScope.SetupGet(e => e.ServiceProvider).Returns(serviceProvider.Object);
 
             var lookup = new TypeLookup();
-            var exception = Record.Exception(() => lookup.GetInstanceByFullName<TypeLookupClass2>(serviceScope.Object, "DbUpdater.EFCore.CLI.Tests.NonExistingType"));
+            var exception = Record.Exception(() => lookup.GetServiceProviderInstanceByFullName<TypeLookupClass2>(serviceScope.Object, "DbUpdater.EFCore.CLI.Tests.NonExistingType"));
             Assert.NotNull(exception);
             Assert.IsType<NotSupportedException>(exception);
         }
@@ -91,7 +103,7 @@ namespace DbUpdater.EFCore.CLI.Tests
             serviceScope.SetupGet(e => e.ServiceProvider).Returns(serviceProvider.Object);
 
             var lookup = new TypeLookup();
-            var exception = Record.Exception(() => lookup.GetInstanceByFullName<TypeLookupClass1>(serviceScope.Object, "DbUpdater.EFCore.CLI.Tests.TypeLookupClass2B"));
+            var exception = Record.Exception(() => lookup.GetServiceProviderInstanceByFullName<TypeLookupClass1>(serviceScope.Object, "DbUpdater.EFCore.CLI.Tests.TypeLookupClass2B"));
             Assert.NotNull(exception);
             Assert.IsType<Exception>(exception);
         }
@@ -106,8 +118,16 @@ namespace DbUpdater.EFCore.CLI.Tests
             serviceScope.SetupGet(e => e.ServiceProvider).Returns(serviceProvider.Object);
 
             var lookup = new TypeLookup();
-            TypeLookupClass2 actual = lookup.GetInstanceByFullName<TypeLookupClass2>(serviceScope.Object, "DbUpdater.EFCore.CLI.Tests.TypeLookupClass2B");
+            TypeLookupClass2 actual = lookup.GetServiceProviderInstanceByFullName<TypeLookupClass2>(serviceScope.Object, "DbUpdater.EFCore.CLI.Tests.TypeLookupClass2B");
             Assert.Null(actual);
+        }
+
+        [Fact()]
+        public void TypeLookup_GetSeederConcreteInstanceByContextName_Returns_Child_Classes_Of_The_AbstractContextSeeder()
+        {
+            var lookup = new TypeLookup();
+            var seeders = lookup.GetSeedersByContextName("DbUpdater.EFCore.CLI.Tests.TypeLookupClass2B").ToList();
+            Assert.NotEmpty(seeders);
         }
     }
 }

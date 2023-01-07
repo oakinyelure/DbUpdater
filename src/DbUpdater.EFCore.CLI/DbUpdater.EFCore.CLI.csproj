@@ -17,8 +17,8 @@
     <Title>DbUpdater.EFCore.CLI</Title>
     <ProductName>DbUpdater.EFCore.CLI</ProductName>
     <AssemblyVersion>1.0.5</AssemblyVersion>
-    <Version>1.0.5-beta</Version>
-    <ProductVersion>1.0.5-beta</ProductVersion>
+    <Version>1.0.5</Version>
+    <ProductVersion>1.0.5</ProductVersion>
     <PackageTags>efcore;entityframework;ef;continous;integration;efcode_first</PackageTags>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <MinVerTagPrefix>v</MinVerTagPrefix>

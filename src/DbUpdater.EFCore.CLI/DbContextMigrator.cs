@@ -27,7 +27,7 @@ namespace DbUpdater.EFCore.CLI
             using IServiceScope serviceScope = scopeFactory.CreateScope();
             _serviceScope = serviceScope;
             _options = opt;
-            MigrationContext = new TypeLookup().GetInstanceByFullName<DbContext>(_serviceScope, _options.Context);
+            MigrationContext = new TypeLookup().GetServiceProviderInstanceByFullName<DbContext>(_serviceScope, _options.Context);
             PersistMigration();
             PersistScript();
             PersistSeed();            
@@ -82,13 +82,8 @@ namespace DbUpdater.EFCore.CLI
                 Console.WriteLine("Seeding is not elected. Skipping");
                 return;
             }
-            // Find where the data context assembly is. We only want to execute the seeder in that assembly
-            Assembly assembly = new TypeLookup().TryGetByFullName(_options.Context).GetType().Assembly;
-            var seeders = assembly.GetTypes()
-                .Where(type => !type.IsAbstract && typeof(AbstractContextSeeder).IsAssignableFrom(type))
-                .Select(type => Activator.CreateInstance(type) as AbstractContextSeeder)
-                .OrderBy(type => type.Order)
-                .ToList();
+            TypeLookup typeLookup = new();
+            var seeders = typeLookup.GetSeedersByContextName(_options.Context).ToList();
             if (seeders.Any())
             {
                 Console.WriteLine($"Found {seeders.Count} seeders....");
