@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Reflection;
 
 namespace DbUpdater.EFCore.CLI
 {
@@ -33,7 +32,7 @@ namespace DbUpdater.EFCore.CLI
             PersistSeed();            
         }
 
-        /// inheritDoc
+        /// <inheritdoc/>
         public void PersistMigration()
         {
             if (!_options.Migrate)
@@ -55,7 +54,7 @@ namespace DbUpdater.EFCore.CLI
         /// <summary>
         /// Persists SQL script into the database
         /// </summary>
-        public void PersistScript()
+        public void PersistScript() 
         {
             if (!_options.Scripts.Any())
             {
@@ -67,14 +66,26 @@ namespace DbUpdater.EFCore.CLI
                 var file = new FileInfo(item);
                 if (file.Exists && file.FullName.EndsWith(".sql"))
                 {
-                    string scriptContext = File.ReadAllText(item);
-                    int recordAffected = MigrationContext.Database.ExecuteSqlRaw(scriptContext);
-                    Console.WriteLine($"{file.FullName} executed. Affects {recordAffected} records");
+                    using var transaction = MigrationContext.Database.BeginTransaction();
+                    try
+                    {
+                        Console.WriteLine("Executing {0}. Save point created. Please wait...",file.FullName);
+                        string scriptContext = File.ReadAllText(item);
+                        transaction.CreateSavepoint("DBUPDATER_SAVEPOINT");
+                        MigrationContext.Database.ExecuteSqlRaw(scriptContext); 
+                        transaction.Commit();
+                        
+                    }
+                    catch(Exception ex)
+                    {
+                        transaction.RollbackToSavepoint("DBUPDATER_SAVEPOINT");
+                        Console.WriteLine(ex.ToString());
+                    }
                 }
             }
         }
 
-        /// inheritDoc
+        /// <inheritdoc/>
         public void PersistSeed()
         {
             if (!_options.Seed)
