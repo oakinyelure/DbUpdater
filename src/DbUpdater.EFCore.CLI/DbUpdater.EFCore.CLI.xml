@@ -52,7 +52,7 @@
             <param name="opt"></param>
         </member>
         <member name="M:DbUpdater.EFCore.CLI.DbContextMigration.PersistMigration">
-            inheritDoc
+            <inheritdoc/>
         </member>
         <member name="M:DbUpdater.EFCore.CLI.DbContextMigration.PersistScript">
             <summary>
@@ -60,7 +60,7 @@
             </summary>
         </member>
         <member name="M:DbUpdater.EFCore.CLI.DbContextMigration.PersistSeed">
-            inheritDoc
+            <inheritdoc/>
         </member>
         <member name="T:DbUpdater.EFCore.CLI.IContextDeployable">
             <summary>

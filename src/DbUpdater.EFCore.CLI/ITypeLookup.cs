@@ -29,7 +29,6 @@ namespace DbUpdater.EFCore.CLI
         /// Searches through the assembly to create instances of objects matching the 
         /// type argument
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="fullContextName"></param>
         /// <returns>Collection of instances matching the type argument</returns>
         IEnumerable<AbstractContextSeeder> GetSeedersByContextName(string fullContextName);
