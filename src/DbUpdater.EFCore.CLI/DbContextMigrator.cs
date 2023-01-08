@@ -66,20 +66,16 @@ namespace DbUpdater.EFCore.CLI
                 var file = new FileInfo(item);
                 if (file.Exists && file.FullName.EndsWith(".sql"))
                 {
-                    using var transaction = MigrationContext.Database.BeginTransaction();
                     try
                     {
-                        Console.WriteLine("Executing {0}. Save point created. Please wait...",file.FullName);
+                        Console.WriteLine("Executing {0}. Please wait...",file.FullName);
                         string scriptContext = File.ReadAllText(item);
-                        transaction.CreateSavepoint("DBUPDATER_SAVEPOINT");
                         MigrationContext.Database.ExecuteSqlRaw(scriptContext); 
-                        transaction.Commit();
                         
                     }
                     catch(Exception ex)
                     {
-                        transaction.RollbackToSavepoint("DBUPDATER_SAVEPOINT");
-                        Console.WriteLine(ex.ToString());
+                        Console.WriteLine("An error have occurred. Moving On .... \n \n Details: {0}",ex.ToString());
                     }
                 }
             }
