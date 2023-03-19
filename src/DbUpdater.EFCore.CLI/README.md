@@ -14,4 +14,4 @@ The DbUpdater.EFCore.CLI is a command line tool that can be used to persist data
 
 ## Usage
 
-See https://github.com/oakinyelure/DbUpdater/wiki/DbUpdater.EFCore.CLI
+See [WIKI](https://github.com/oakinyelure/DbUpdater/wiki)
