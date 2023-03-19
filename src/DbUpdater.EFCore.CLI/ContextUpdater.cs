@@ -17,12 +17,9 @@ namespace DbUpdater.EFCore.CLI
         /// <returns></returns>
         public static void DeployMigrationFromCLI(this IHost host, string[] args)
         {
-            if (!args.Any())
-            {
-                Environment.Exit(0);
-            }
+            if (!args.Any()) return;
             var parsedOptions = Parser.Default.ParseArguments<MigrationOption>(args);
-            if (parsedOptions.Errors.Any()) Environment.Exit(0);
+            if (parsedOptions.Errors.Any()) Environment.Exit(-1);
 
             try
             {
@@ -32,7 +29,6 @@ namespace DbUpdater.EFCore.CLI
                 {
                     ProjectInformation.ShowHelp();
                     Environment.Exit(0);
-                    return;
                 }
                 Console.WriteLine("Starting migration......");
                 _ = new DbContextMigration(host, parsedOptions.Value);

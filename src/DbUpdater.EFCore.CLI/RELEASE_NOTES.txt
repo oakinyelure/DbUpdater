@@ -17,6 +17,9 @@ v1.0.5
 - Updated the type lookup class to include method for getting all seedable objects
 
 v1.0.6
-- Added ability to continue executing other script when one script fails to execute
-- Added ability to rollback transactions when a script fails. Successful transactions will be committed
-- Added information to script execution so that the name of the script is visible on the console before execution.
+	- Added ability to continue executing other script when one script fails to execute
+	- Added ability to rollback transactions when a script fails. Successful transactions will be committed
+	- Added information to script execution so that the name of the script is visible on the console before execution.
+v1.0.7
+	- The exit command is causing applications to terminate when ran in non-cli mode. Because the argument list is empty, DbUpdater automatically terminates the application. This is not the desired behavior
+	  V1.0.7 removes the termination.

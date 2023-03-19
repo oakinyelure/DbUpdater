@@ -16,9 +16,9 @@
     <Company>oakinyelure</Company>
     <Title>DbUpdater.EFCore.CLI</Title>
     <ProductName>DbUpdater.EFCore.CLI</ProductName>
-    <AssemblyVersion>1.0.7</AssemblyVersion>
-    <Version>1.0.7</Version>
-    <ProductVersion>1.0.7</ProductVersion>
+    <AssemblyVersion>1.0.8</AssemblyVersion>
+    <Version>1.0.8</Version>
+    <ProductVersion>1.0.8</ProductVersion>
     <PackageTags>efcore;entityframework;ef;continous;integration;efcode_first</PackageTags>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <MinVerTagPrefix>v</MinVerTagPrefix>
@@ -54,6 +54,10 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="NugetOutput\" />
   </ItemGroup>
 
 </Project>
