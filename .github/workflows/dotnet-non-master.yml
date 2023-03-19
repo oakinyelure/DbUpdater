@@ -4,7 +4,7 @@
 name: Solution Build
 
 on:
-    push:
+    pull_request:
         branches: ["develop"]
 
 jobs:
@@ -23,5 +23,3 @@ jobs:
               run: dotnet build DbUpdater.sln --no-restore
             - name: Run Unit Tests
               run: dotnet test DbUpdater.sln --no-restore --verbosity normal --logger trx --results-directory "TEST_ARTIFACTS"
-            - name: Deploy package to NuGet
-              run: dotnet nuget push src/DbUpdater.EFCore.CLI/NugetOutput/*.nupkg --api-key ${{secrets.NUGET_TOKEN}} --source https://api.nuget.org/v3/index.json
